@@ -68,18 +68,20 @@ public class AccountRequestController {
  */
 	@RequestMapping("/balance/{accId}/{fromdate}/{todate}")
 	public String getRelativeBalance(@PathVariable (value = "accId") String accId,
-			@PathVariable (value = "fromdate") String fromDate,@PathVariable (value = "todate") String toDate	) throws Exception {
-
+			@PathVariable (value = "fromdate") String fromDate,@PathVariable (value = "todate") String toDate	) {
+		String result=null;
 		logger.info("getting relative balance of "+accId); 
-
+		try {
 		if(null!=accId&&null!=fromDate&&null!=toDate) {
 			// calling service layer
-			return accountService.getRelativeBalance(accId,fromDate,toDate);
+			result= accountService.getRelativeBalance(accId,fromDate,toDate);
 		}
-
-		return null;
+		}
+		catch (Exception e) {
+			result="Error occured, please contact support";
+		}
+		return result;
 	}
-
 
 
 
